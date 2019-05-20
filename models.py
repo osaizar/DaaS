@@ -51,7 +51,7 @@ class Campaign(Base):
 class Character(Base):
     __tablename__ = "character"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    master = Column(Integer, ForeignKey("user.id"))
+    user = Column(Integer, ForeignKey("user.id"))
     name = Column(String(250), nullable=False)
     ch_class = Column(Integer, ForeignKey("ch_class.id"))
 

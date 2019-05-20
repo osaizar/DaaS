@@ -51,3 +51,23 @@ def delete_session_by_user(userId):
         return True
     except:
         return None
+
+# D&D stuff
+
+def get_character_class_by_id(chclassId):
+    try:
+        return CharacterClass.query.filter(CharacterClass.id == chclassId).one()
+    except:
+        return None
+
+def get_character_class_by_name(chclass):
+    try:
+        return CharacterClass.query.filter(CharacterClass.name == chclass).one()
+    except:
+        return None
+
+def get_character_by_id(chId):
+    try:
+        return Character.query.filter(Character.id == chId).one()
+    except:
+        return None

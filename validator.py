@@ -14,8 +14,8 @@ def validate_json(f):
             if js == None:
                 raise Exception
         except:
-            logger.error("400 Errorea, json-a ez da egokia "+str(request.remote_addr))
-            return jsonify({"error": "Eskaera ez da egokia"}), 400
+            logger.error("400 Error, JSON is not correct "+str(request.remote_addr))
+            return jsonify({"error": "Incorrect request"}), 400
         return f(*args, **kw)
     return wrapper
 
@@ -24,24 +24,24 @@ def validate_token(f):
     def wrapper(*args, **kw):
         try:
             if "token" not in request.headers:
-                logger.warning("400 Errorea, tokenik ez."+str(request.remote_addr))
-                return jsonify({"error" : "Gakorik ez"}), 400
+                logger.warning("400 Error, no token provided."+str(request.remote_addr))
+                return jsonify({"error" : "No token provided"}), 400
 
             token = request.headers["token"]
             user = db.get_user_by_token(token)
             if user == None:
-                logger.warning("400 Errorea, tokena ez da egokia. "+str(request.remote_addr))
-                return jsonify({"error" : "Gakoa ez da zuzena"}), 400
+                logger.warning("400 Error, incorrect token. "+str(request.remote_addr))
+                return jsonify({"error" : "Incorrect token"}), 400
 
             session = db.get_session_by_token(token)
 
             if session.check_token_expired():
-                logger.warning("400 Errorea,"+user.username+" erabiltzailearen tokena iraungita dago. "+str(request.remote_addr))
-                return jsonify({"error" : "Gakoa ez da zuzena"}), 400
+                logger.warning("400 Error,"+user.username+" users token is expired "+str(request.remote_addr))
+                return jsonify({"error" : "Incorrect token"}), 400
 
         except Exception as e:
-            logger.error("Extepzioa 'validate_token': "+str(e)+" "+str(request.remote_addr))
-            return jsonify({"error": "Eskaera ez da egokia"}), 400
+            logger.error("Exception 'validate_token': "+str(e)+" "+str(request.remote_addr))
+            return jsonify({"error": "Incorrect request"}), 400
 
         return f(*args, **kw)
     return wrapper
@@ -58,8 +58,25 @@ def validate_schema(name):
         return wrapper
     return decorator
 
-def validate(input, name):
-    if name == False:
-        pass
+def validate(input, name): # TODO: input validation
+    if name == "create_campaign":
+        validate_create_campaign(input)
+    if name == "create_character":
+        validate_create_character(input)
     else:
-        Exception("Ez dago izen hori duen eskemarik")
+        Exception("No schemas with that name")
+
+def validate_create_campaign(input):
+    try:
+        name = input["name"]
+        characters = input["characters"]
+        ch0 = input["characters"][0]
+    except:
+        Exception("Invalid request")
+
+def validate_create_character(input):
+    try:
+        name = input["name"]
+        ch_class = input["character_class"]
+    except:
+        Exception("Invalid request")
