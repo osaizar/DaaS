@@ -1,6 +1,6 @@
 from database import db_session
 from sqlalchemy import and_, or_, func
-from models import Device, User, Session, Message, Permission
+from models import *
 
 def add(data):
     try:

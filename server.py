@@ -6,7 +6,7 @@ import os
 import db_helper as db
 from validator import validate_json, validate_schema, validate_token
 from logger import Logger
-from models import Device, User, Session, Message, Permission
+from models import *
 
 PORT = 5000
 ADDR = "0.0.0.0"
