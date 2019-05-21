@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, abort, jsonify, after_this_request
-from werkzeug.security import generate_password_hash, check_password_hash
+from crypto_helper import generate_password_hash, check_password_hash
 import random, string
 import os
 
