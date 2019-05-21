@@ -1,6 +1,6 @@
 # coding: latin-1
 from database import Base, db_session, engine
-from werkzeug.security import generate_password_hash
+from crypto_helper import generate_password_hash
 from sqlalchemy_utils import database_exists, create_database, drop_database
 from models import CharacterClass
 
