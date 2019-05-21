@@ -1,2 +1,8 @@
 # folder with spells by level
 spells_roles/sp_lvl/*
+
+# temp files
+*.py~
+
+# python compiled
+*.pyc
