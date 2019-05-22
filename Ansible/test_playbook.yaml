@@ -1,0 +1,10 @@
+---
+hosts:
+become: true
+gather_facts: false
+tasks:
+  - name: create dir testdir
+    file: 
+      path=/testdir
+      state=directory
+	
