@@ -18,6 +18,20 @@ logger = Logger().get_logger()
 def token_generator(size=15, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
+@app.route('/', methods=["GET"])
+def index():
+    help = """
+    <h1>Welcome to the DaaS web server</h1>
+    <h3>Allowed methods:</h3>
+    <p>/sign_up {"username", "password"}</p>
+    <p>/login {"username", "password"}</p>
+    <p>/logout </p
+    <p>/sign_up {"username", "password"}</p>
+    <p>/create_character {"name", "character_class"}</p>
+    <p>/create_campaign {"name", "characters"}</p>
+    """
+    return ""
+
 # User Management START
 @app.route('/get_curr_user', methods=["GET"])
 @validate_token
