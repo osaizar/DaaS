@@ -1,0 +1,3 @@
+Cleric
+Warlock
+Wizard

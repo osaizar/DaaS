@@ -1,0 +1,9 @@
+---
+- hosts: <>
+  tasks:
+  - name: Ensure Character Class (UNIX group) exists
+    become: yes
+    become_user: root
+    group:
+      name: Warlock
+      state: present
