@@ -30,7 +30,7 @@ def index():
     <p>/create_character {"name", "character_class"}</p>
     <p>/create_campaign {"name", "characters"}</p>
     """
-    return ""
+    return help
 
 # User Management START
 @app.route('/get_curr_user', methods=["GET"])
