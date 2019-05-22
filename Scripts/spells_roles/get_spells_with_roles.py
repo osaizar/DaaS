@@ -26,6 +26,7 @@ for spell in spells:
     # replace / with _ so it can be the name of a file
     name = spell["name"]
     name = name.replace("/", "_")
+    name = name.replace(" ", "_")
     # check the level of the spell to see which folder to put it into
     lvl = content["level"]
     if int(lvl) < 0:
