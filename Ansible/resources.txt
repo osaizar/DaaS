@@ -1,0 +1,13 @@
+https://opensource.com/article/19/5/manage-access-control-lists-ansible
+
+Lookups
+https://docs.ansible.com/ansible/2.4/playbooks_lookups.html#the-csv-file-lookup
+
+file
+https://docs.ansible.com/ansible/latest/plugins/lookup/file.html
+
+user
+https://docs.ansible.com/ansible/latest/modules/user_module.html
+
+group
+https://docs.ansible.com/ansible/latest/modules/group_module.html
