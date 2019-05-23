@@ -1,0 +1,14 @@
+---
+- hosts: webservers
+# tasks file for webservers
+  vars:
+     contents: "{{ lookup('file', '/etc/ansible/ansible_testing/testdir/user1.txt') }}"
+
+  tasks:
+  - name: create users
+    become: yes
+    become_user: root
+    user:
+      name: "{{ contents }}" # "{{ item }}"
+      password: pass
+      group: Warlock
