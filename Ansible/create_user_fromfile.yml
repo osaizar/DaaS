@@ -1,14 +1,18 @@
 ---
-- hosts: webservers
-# tasks file for webservers
+- hosts: webservers # TODO
   vars:
-     contents: "{{ lookup('file', '/etc/ansible/ansible_testing/testdir/user1.txt') }}"
+     # name,password,uid,group
+     csvfile: "{{ lookup('file', '/home/prueba/ansible_testing/testdir/userlist.csv') }}"
+     lines: "{{ csvfile.split('\n') }}"
 
-  tasks:
+  tasks:  
   - name: create users
     become: yes
     become_user: root
     user:
-      name: "{{ contents }}" # "{{ item }}"
-      password: pass
-      group: Warlock
+     name: "{{item.split(',')[0]}}"
+     password: "{{item.split(',')[1]}}"
+     uid: "{{item.split(',')[2]}}"
+     group: "{{item.split(',')[3]}}"
+    with_items: 
+     - "{{lines}}"

@@ -1,9 +1,17 @@
 ---
-- hosts: <>
+- hosts: webservers # TODO
+  vars:
+    # groupname,gid
+    csvfile: "{{ lookup('file', '/home/prueba/ansible_testing/testdir/grouplist.csv') }}"
+    lines: "{{ csvfile.split('\n') }}"
+    
   tasks:
   - name: Ensure Character Class (UNIX group) exists
     become: yes
     become_user: root
     group:
-      name: Warlock
-      state: present
+      name: "{{item.split(',')[0]}}"
+      state: present      
+      gid: "{{item.split(',')[1]}}"
+    with_items:
+      - "{{lines}}"
