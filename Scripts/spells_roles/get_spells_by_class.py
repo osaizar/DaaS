@@ -4,10 +4,10 @@ import json
 import os
 
 # ruta_patras = /root/spells/
-ruta_patras = "/home/ainhoa/repos/DaaS/Scripts/spells_roles/"
+ruta_patras = os.getcwd()
 
-PARENT_FOLDER = "ch_class/"
-SOURCE_PATH = "sp_lvl/"
+PARENT_FOLDER = "/ch_class/"
+SOURCE_PATH = "/sp_lvl/"
 
 # load all classes json
 with open("classes.json") as f:
