@@ -1,0 +1,14 @@
+---
+- hosts: webservers # TODO
+    
+  tasks:
+    - name: Create a group for each spell level
+      become: yes
+      become_user: root
+          group:
+            name: "splv{{item}}"
+            state: present      
+            gid: "300{{item}}"
+      with_items:
+        - "{{[0,1,2,3,4,5,6,7,8,9]}}""
+

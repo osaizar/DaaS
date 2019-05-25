@@ -1,0 +1,21 @@
+---
+- hosts: webservers # TODO
+  vars:
+    # groupname,gid
+    csvfile: "{{ lookup('file', '/root/grouplist.csv') }}"
+    lines: "{{ csvfile.split('\n') }}"
+  
+  tasks:
+    - name: Grant group permissions to read his classes folder
+      become: yes
+      become_user: root
+      command: "setfacl g:{{ item.split(',')[0] }}:r /root/ch_class/{{ item.split(',')[0] }} -R"
+      with_items:
+        - "{{ lines }}"
+
+    - name: Grant group permissions to read his lv folder
+      become: yes
+      become_user: root
+      command: "setfacl g:splv{{ item }}:r /root/sp_lv/{{ item }}"
+      with_items:
+        - "{{[0,1,2,3,4,5,6,7,8,9]}}"

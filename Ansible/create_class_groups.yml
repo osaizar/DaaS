@@ -2,7 +2,7 @@
 - hosts: webservers # TODO
   vars:
     # groupname,gid
-    csvfile: "{{ lookup('file', '/home/prueba/ansible_testing/testdir/grouplist.csv') }}"
+    csvfile: "{{ lookup('file', '/root/grouplist.csv') }}"
     lines: "{{ csvfile.split('\n') }}"
     
   tasks:

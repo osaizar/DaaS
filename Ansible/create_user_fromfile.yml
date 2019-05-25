@@ -1,8 +1,8 @@
 ---
 - hosts: webservers # TODO
   vars:
-     # name,password,uid,group
-     csvfile: "{{ lookup('file', '/home/prueba/ansible_testing/testdir/userlist.csv') }}"
+     # name,password,uid,group,lv
+     csvfile: "{{ lookup('file', '/root/userlist.csv') }}"
      lines: "{{ csvfile.split('\n') }}"
 
   tasks:  
