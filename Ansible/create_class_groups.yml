@@ -5,7 +5,7 @@
  # later created into. 
   #
 
-- hosts: webservers # TODO
+- hosts: instances # TODO
   vars:
     # groupname,gid
     csvfile: "{{ lookup('file', '/root/grouplist.csv') }}"

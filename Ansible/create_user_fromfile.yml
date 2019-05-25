@@ -5,7 +5,7 @@
  # such user data
   #
 
-- hosts: PRU
+- hosts: instances
   vars:
      # name,password,uid,group_c,group_lv
      csvfile: "{{ lookup('file', '/home/daas/DaaS/Ansible/test_csv_files/userlist.csv') }}"
