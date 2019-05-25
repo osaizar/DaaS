@@ -54,7 +54,7 @@ for chclass in spells_by_class:
     if len(class_spells):
         # create folders for storing the spells by level
         for i in range(0, 10):
-            newpath = PARENT_FOLDER + str(chclass) + "/" + str(i)
+            newpath = ruta_patras + PARENT_FOLDER + str(chclass) + "/" + str(i)
             if not os.path.exists(newpath):
                 os.makedirs(newpath)
         # create spell files' links
@@ -64,3 +64,6 @@ for chclass in spells_by_class:
             src = ruta_patras + SOURCE_PATH + sp_level + "/" + sp_name + ".json"
             dst = ruta_patras + PARENT_FOLDER + str(chclass) + "/" + sp_level + "/" + sp_name + ".json"
             os.symlink(src, dst)
+
+os.system("chmod 700 -R"+ruta_patras + PARENT_FOLDER)
+os.system("chmod 700 -R"+ruta_patras + SOURCE_FOLDER)
