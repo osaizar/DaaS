@@ -5,8 +5,7 @@ from urllib.request import urlopen
 import json
 import os
 
-# ruta_patras = /root/spells/
-ruta_patras = os.getcwd()+"/"
+ruta_patras = /opt/
 
 PARENT_FOLDER = "ch_class/"
 SOURCE_PATH = "sp_lvl/"

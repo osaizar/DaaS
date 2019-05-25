@@ -5,7 +5,7 @@ from urllib.request import urlopen
 import json
 import os
 
-PARENT_FOLDER = "sp_lvl/"
+PARENT_FOLDER = "/opt/sp_lvl/"
 
 # load all spells json
 with open("spells.json") as f:
