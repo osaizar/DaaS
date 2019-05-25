@@ -19,7 +19,7 @@
      name: "{{item.split(',')[0]}}"
      password: "{{item.split(',')[1]}}"
      uid: "{{item.split(',')[2]}}"
-     group: "{{item.split(',')[3]}}"
+     groups: "{{item.split(',')[3]}},{{item.split(',')[4]}}"
     with_items: 
      - "{{lines}}"
 
