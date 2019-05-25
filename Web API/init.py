@@ -2,9 +2,7 @@
 from database import Base, db_session, engine
 from crypto_helper import generate_password_hash
 from sqlalchemy_utils import database_exists, create_database, drop_database
-from models import CharacterClass
-
-CLASSES = ["Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard"]
+from models import CharacterClass, CLASSES
 
 def add(data):
     db_session.add(data)

@@ -78,5 +78,6 @@ def validate_create_character(input):
     try:
         name = input["name"]
         ch_class = input["character_class"]
+        lvl = input["lvl"]
     except:
         Exception("Invalid request")

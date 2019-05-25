@@ -2,6 +2,8 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Date, DateT
 import datetime, string, random
 from database import Base
 
+CLASSES = ["Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard"]
+
 
 # User & Session control
 class User(Base):
@@ -53,11 +55,13 @@ class Character(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user = Column(Integer, ForeignKey("user.id"))
     name = Column(String(250), nullable=False)
+    lvl = Column(Integer, nullable=False)
     ch_class = Column(Integer, ForeignKey("ch_class.id"))
 
-    def __init__(self, name, ch_class, user):
+    def __init__(self, name, ch_class, lvl, user):
         self.name = name
         self.ch_class = ch_class
+        self.lvl = lvl
         self.user = user
 
 

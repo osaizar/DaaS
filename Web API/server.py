@@ -4,6 +4,7 @@ import random, string
 import os
 
 import db_helper as db
+import ansible_helper as ansible
 from validator import validate_json, validate_schema, validate_token
 from logger import Logger
 from models import *
@@ -27,7 +28,7 @@ def index():
     <p>/login {"username", "password"}</p>
     <p>/logout </p
     <p>/sign_up {"username", "password"}</p>
-    <p>/create_character {"name", "character_class"}</p>
+    <p>/create_character {"name", "character_class", "lvl"}</p>
     <p>/create_campaign {"name", "characters"}</p>
     """
     return help
@@ -115,18 +116,24 @@ def create_campaign():
         data = request.get_json(silent = True) # name & chclass
 
         name = data["name"]
-        characters = data["characters"]
+        ch = data["characters"]
+        characters = []
+        for c in ch:
+            t = db.get_character_by_id(c)
 
-        for c in characters:
-            if db.get_character_by_id(c) == None:
+            if t == None:
                 return jsonify({"error": "Character is not correct"}), 400
+
+            characters.append(t)
 
         campaign = db.add(Campaign(user.id, name))
         if not campaign:
             abort(500)
 
         for c in characters:
-            db.add(CampaignCharacter(c, campaign.id))
+            db.add(CampaignCharacter(c.id, campaign.id))
+
+        ansible.generate_userlist(characters, campaign)
 
 
         return jsonify({"campaign_id" : campaign.id})
@@ -148,11 +155,12 @@ def create_character():
         data = request.get_json(silent = True) # name & chclass
         ch_class = db.get_character_class_by_name(data["character_class"])
         name = data["name"]
+        lvl = data["lvl"]
 
         if ch_class == None:
             return jsonify({"error": "Character class is not correct"}), 400
 
-        character = db.add(Character(name, ch_class.id, user.id))
+        character = db.add(Character(name, ch_class.id, lvl, user.id))
         if not character:
             abort(500)
 
