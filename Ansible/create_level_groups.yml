@@ -1,4 +1,10 @@
 ---
+## Takes 0-9 array containing
+ # group name(level) & gid. These are used to create
+ # LEVEL GROUPS in which the users will be
+ # later added into. 
+  #
+
 - hosts: webservers # TODO
     
   tasks:
