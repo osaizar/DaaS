@@ -1,13 +1,15 @@
+# 2  
+
 from urllib.request import urlopen
 # import urllib2
 import json
 import os
 
 # ruta_patras = /root/spells/
-ruta_patras = os.getcwd()
+ruta_patras = os.getcwd()+"/"
 
-PARENT_FOLDER = "/ch_class/"
-SOURCE_PATH = "/sp_lvl/"
+PARENT_FOLDER = "ch_class/"
+SOURCE_PATH = "sp_lvl/"
 
 # load all classes json
 with open("classes.json") as f:
@@ -26,7 +28,7 @@ with open("spells.json") as f:
 spells = json.loads(spells)
 spells = spells["results"]
 
-# sepparate spells in lists per class
+# separate spells in lists per class
 for spell in spells:
     url = spell["url"]
     # replace / with _ so it can be the name of a file
