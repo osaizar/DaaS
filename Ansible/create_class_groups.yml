@@ -1,4 +1,10 @@
 ---
+## Takes csv file <grouplist.csv> containing
+ # group name & gid. These are used to create
+ # CLASS GROUPS in which the users will be
+ # later created into. 
+  #
+
 - hosts: webservers # TODO
   vars:
     # groupname,gid
