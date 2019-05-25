@@ -1,14 +1,14 @@
 ---
 ## Takes a csv file <userlist.csv> containing user: 
- # name , passwd , uid , group
+ # name , passwd , uid , group(s)
  # to create remote users on cloud instances with 
  # such user data
   #
 
-- hosts: webservers # TODO
+- hosts: PRU
   vars:
-     # name,password,uid,group,lv
-     csvfile: "{{ lookup('file', '/root/userlist.csv') }}"
+     # name,password,uid,group_c,group_lv
+     csvfile: "{{ lookup('file', '/home/daas/DaaS/Ansible/test_csv_files/userlist.csv') }}"
      lines: "{{ csvfile.split('\n') }}"
 
   tasks:  
