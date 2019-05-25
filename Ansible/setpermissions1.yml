@@ -1,0 +1,12 @@
+---
+- hosts:
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Grant user read access to a file
+        acl:
+          path: /etc/foo.conf
+          entity: shirley
+          etype: user
+          permissions: r
+          state: present
