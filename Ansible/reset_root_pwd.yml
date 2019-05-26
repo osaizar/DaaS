@@ -1,0 +1,20 @@
+## Change the remote root password for the new master's
+---
+- hosts: instances
+  any_errors_fatal: true # stop if fatal errors occurr
+  become: true
+  become_user: root
+  vars:
+    csvfile: "{{ lookup('file','/home/daas/DaaS/Ansible/test_csv_files/mastercreds.csv') }}"
+
+  tasks:
+  - name: Assert ansible version
+    assert:
+      that:
+        - "{{ ansible_version.string | version_compare('2.2', '>=') }}"
+      msg: Ansible 2.2 or above is required for this functionality to work.
+
+  - name: Reset root password
+    user:
+      name: root
+      password: "{{ csvfile }}"
