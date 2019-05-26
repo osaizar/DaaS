@@ -4,4 +4,6 @@
     - name: Run apt-get update on instances to keep updated
       become: yes
       become_user: root
-      yum: name=* state=latest
+      apt:
+	upgrade: yes
+    	update_cache: yes 
