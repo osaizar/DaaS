@@ -3,6 +3,7 @@ import grp
 import json
 from urllib.request import urlopen
 import random
+import subprocess
 
 STATS = ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
 
@@ -25,9 +26,7 @@ for group in gid:
     group_names.append(gname)
 
 ch_class = group_names[1]
-ch_class = "Warlock"  # TODO Delete
 ch_lvl = group_names[2].replace("splv", "")
-ch_lvl = 0  # TODO Delete
 ch_name = os.getlogin()
 
 origin_path = "json/"
@@ -109,4 +108,16 @@ print("[GM]\tThat's about it when it comes to your character.\n\tNow that we"
 
 print("[S]\tAvailable spells for level " + str(ch_lvl) + " " + str(ch_class)
       + ":")
-print("\tspells")  # TODO add spell search
+spells_path = "/opt/ch_class/" + ch_class + "/" + ch_lvl + "/"
+available_spells = subprocess.check_output(['ls']).decode('utf-8')
+print("\t" + str(available_spells))
+
+character_path = "/home/" + str(ch_name) + "/character.txt"
+with open(character_path, "w") as f:
+    f.write("Name: " + str(ch_name) + "\n\tRace: "
+            + str(ch_race) + "\n\tClass: " + str(ch_class) + "\n\tHP: "
+            + str(hit_die) + "\n\tAbility scores: " + str(ability_scores)
+            + "\nAvailable spells:\n" + str(available_spells))
+
+print("[GM]\t A file has been created in " + str(character_path) + "with these"
+      + " information.\n\t Have, fun! :D")
