@@ -37,13 +37,13 @@ classes = json.loads(classes)
 classes = classes["results"]
 hit_die = 0
 
-# for op_class in classes:
-#     if op_class["name"].upper() == str(ch_class).upper():
-#         url = op_class["url"]
-#         content = urlopen(url).read().decode("UTF-8")
-#         content = json.loads(content)
-#         hit_die = content["hit_die"]
-#         break
+for op_class in classes:
+    if op_class["name"].upper() == str(ch_class).upper():
+        url = op_class["url"]
+        content = urlopen(url).read().decode("UTF-8")
+        content = json.loads(content)
+        hit_die = content["hit_die"]
+        break
 
 print("[GM]\tHello! You must be " + str(ch_name) + ", the level " + str(ch_lvl)
       + " " + str(ch_class) + "!\n\tI've heard great things about you, but"
@@ -60,13 +60,13 @@ ch_race = input("\n[S]\tType your race: ")
 print("[GM]\tLet me check...")
 
 ability_bonuses = []
-# for race in races:
-#     if race["name"].upper() == str(ch_race).upper():
-#         url = race["url"]
-#         content = urlopen(url).read().decode("UTF-8")
-#         content = json.loads(content)
-#         ability_bonuses = content["ability_bonuses"]
-#         break
+for race in races:
+    if race["name"].upper() == str(ch_race).upper():
+        url = race["url"]
+        content = urlopen(url).read().decode("UTF-8")
+        content = json.loads(content)
+        ability_bonuses = content["ability_bonuses"]
+        break
 
 print("[GM]\tOh! That's good to know, it will boost some of your stats. "
       + "\n\tThe stats are the values representing your habilities. We'll call"
