@@ -5,7 +5,7 @@ from urllib.request import urlopen
 import json
 import os
 
-ruta_patras = /opt/
+ruta_patras = "/opt/"
 
 PARENT_FOLDER = "ch_class/"
 SOURCE_PATH = "sp_lvl/"
@@ -64,5 +64,5 @@ for chclass in spells_by_class:
             dst = ruta_patras + PARENT_FOLDER + str(chclass) + "/" + sp_level + "/" + sp_name + ".json"
             os.symlink(src, dst)
 
-os.system("chmod 700 -R"+ruta_patras + PARENT_FOLDER)
-os.system("chmod 700 -R"+ruta_patras + SOURCE_FOLDER)
+os.system("chmod 700 -R "+ruta_patras + PARENT_FOLDER)
+os.system("chmod 700 -R "+ruta_patras + SOURCE_PATH)
