@@ -1,0 +1,30 @@
+---
+## Takes a csv file <userlist.csv> containing user: 
+ # name , passwd , uid , group(s)
+ # to create remote users on cloud instances with 
+ # such user data
+  #
+
+- hosts: instances
+  vars:
+     # name,password,uid,group_c,group_lv
+     csvfile: "{{ lookup('file', '../csv/userlist.csv') }}"
+     lines: "{{ csvfile.split('\n') }}"
+
+  tasks:  
+  - name: create users
+    become: yes
+    become_user: root
+    user:
+     name: "{{item.split(',')[0]}}"
+     password: "{{item.split(',')[1]}}"
+     uid: "{{item.split(',')[2]}}"
+     groups: "{{item.split(',')[3]}},{{item.split(',')[4]}}"
+    with_items: 
+     - "{{lines}}"
+
+# TODO
+# add user to 2nd group (LEVEL)
+# either thr/ another csv column (group_c &
+# group_l) or creating another task to add the
+# just created user to the other group (useradd))

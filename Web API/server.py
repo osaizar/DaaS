@@ -134,9 +134,11 @@ def create_campaign():
             db.add(CampaignCharacter(c.id, campaign.id))
 
         ansible.generate_userlist(characters, campaign)
+        ansible.generate_admin_pass(user)
+        instance_ip = ansible.start_instance()
 
 
-        return jsonify({"campaign_id" : campaign.id})
+        return jsonify({"campaign_id" : campaign.id, "instance_ip" : instance_ip})
 
     except Exception as e:
         print("[DEBUG] Error in 'create_campaign' : "+str(e))
