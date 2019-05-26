@@ -1,16 +1,11 @@
 ## Change the remote root password for the new master's
- #
-  #
-
 ---
-- hosts: <localhost>
+- hosts: instances
   any_errors_fatal: true # stop if fatal errors occurr
   become: true
   become_user: root
   vars:
-    #
-    csvfile: "{{ lookup('file',
-'/home/daas/DaaS/Ansible/test_csv_files/mastercreds.csv') }}"
+    csvfile: "{{ lookup('file','/home/daas/DaaS/Ansible/test_csv_files/mastercreds.csv') }}"
 
   tasks:
   - name: Assert ansible version
