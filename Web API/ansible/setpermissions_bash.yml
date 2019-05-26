@@ -1,0 +1,35 @@
+---
+- hosts: instances # TODO
+  vars:
+    # groupname,gid
+    csvfile: "{{ lookup('file', '/home/daas/DaaS/Web API/csv/group_list.csv') }}"
+    lines: "{{ csvfile.split('\n') }}"
+  
+  tasks:
+    - name: Grant group permissions to read his classes folder
+      become: yes
+      become_user: root
+      command: "setfacl -m  g:{{ item.split(',')[0] }}:rx /opt/ch_class"
+      with_items:
+        - "{{ lines }}"
+
+    - name: Grant group permissions to read his classes folder
+      become: yes
+      become_user: root
+      command: "setfacl -Rm  g:{{ item.split(',')[0] }}:rx /opt/ch_class/{{ item.split(',')[0] }}/"
+      with_items:
+        - "{{ lines }}"
+
+    - name: Grant group permissions to read his lv folder
+      become: yes
+      become_user: root
+      command: "setfacl -m g:splv{{ item }}:rx /opt/sp_lvl"
+      with_items:
+        - "{{[0,1,2,3,4,5,6,7,8,9]}}"
+
+    - name: Grant group permissions to read his lv folder
+      become: yes
+      become_user: root
+      command: "setfacl -Rm g:splv{{ item }}:rx /opt/sp_lvl/{{ item }}/"
+      with_items:
+        - "{{[0,1,2,3,4,5,6,7,8,9]}}"
