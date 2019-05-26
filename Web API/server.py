@@ -26,8 +26,7 @@ def index():
     <h3>Allowed methods:</h3>
     <p>/sign_up {"username", "password"}</p>
     <p>/login {"username", "password"}</p>
-    <p>/logout </p
-    <p>/sign_up {"username", "password"}</p>
+    <p>/logout </p>
     <p>/create_character {"name", "character_class", "lvl"}</p>
     <p>/create_campaign {"name", "characters"}</p>
     """
@@ -133,6 +132,7 @@ def create_campaign():
         for c in characters:
             db.add(CampaignCharacter(c.id, campaign.id))
 
+        ansible.generate_grouplist()
         ansible.generate_userlist(characters, campaign)
         ansible.generate_admin_pass(user)
         instance_ip = ansible.start_instance()
