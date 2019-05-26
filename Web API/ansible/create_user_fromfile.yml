@@ -8,7 +8,7 @@
 - hosts: instances
   vars:
      # name,password,uid,group_c,group_lv
-     csvfile: "{{ lookup('file', 'csv/userlist.csv') }}"
+     csvfile: "{{ lookup('file', '/home/daas/DaaS/Web API/csv/userlist.csv') }}"
      lines: "{{ csvfile.split('\n') }}"
 
   tasks:  
