@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 import grp
 import json
@@ -29,10 +31,7 @@ ch_class = group_names[1]
 ch_lvl = group_names[2].replace("splv", "")
 ch_name = os.getlogin()
 
-origin_path = "json/"
-with open(str(origin_path) + "classes.json") as f:
-    classes = f.read()
-classes = json.loads(classes)
+classes = {"count":12,"results":[{"name":"Barbarian","url":"http://www.dnd5eapi.co/api/classes/1"},{"name":"Bard","url":"http://www.dnd5eapi.co/api/classes/2"},{"name":"Cleric","url":"http://www.dnd5eapi.co/api/classes/3"},{"name":"Druid","url":"http://www.dnd5eapi.co/api/classes/4"},{"name":"Fighter","url":"http://www.dnd5eapi.co/api/classes/5"},{"name":"Monk","url":"http://www.dnd5eapi.co/api/classes/6"},{"name":"Paladin","url":"http://www.dnd5eapi.co/api/classes/7"},{"name":"Ranger","url":"http://www.dnd5eapi.co/api/classes/8"},{"name":"Rogue","url":"http://www.dnd5eapi.co/api/classes/9"},{"name":"Sorcerer","url":"http://www.dnd5eapi.co/api/classes/10"},{"name":"Warlock","url":"http://www.dnd5eapi.co/api/classes/11"},{"name":"Wizard","url":"http://www.dnd5eapi.co/api/classes/12"}]}
 classes = classes["results"]
 hit_die = 0
 
@@ -48,9 +47,7 @@ print("[GM]\tHello! You must be " + str(ch_name) + ", the level " + str(ch_lvl)
       + " " + str(ch_class) + "!\n\tI've heard great things about you, but"
       + " tell me, what is your race?")
 
-with open(str(origin_path) + "races.json") as f:
-    races = f.read()
-races = json.loads(races)
+races = {"count":9,"results":[{"name":"Dwarf","url":"http://www.dnd5eapi.co/api/races/1"},{"name":"Elf","url":"http://www.dnd5eapi.co/api/races/2"},{"name":"Halfling","url":"http://www.dnd5eapi.co/api/races/3"},{"name":"Human","url":"http://www.dnd5eapi.co/api/races/4"},{"name":"Dragonborn","url":"http://www.dnd5eapi.co/api/races/5"},{"name":"Gnome","url":"http://www.dnd5eapi.co/api/races/6"},{"name":"Half-Elf","url":"http://www.dnd5eapi.co/api/races/7"},{"name":"Half-Orc","url":"http://www.dnd5eapi.co/api/races/8"},{"name":"Tiefling","url":"http://www.dnd5eapi.co/api/races/9"}]}
 races = races["results"]
 for race in races:
     print(race["name"])
@@ -98,7 +95,7 @@ for i, bonus in enumerate(ability_bonuses):
     ability_scores[STATS[i]] = ability_scores[STATS[i]] + bonus
 
 print("[GM]\tWell done! With this your character is complete. Let me show you"
-      + "a summary of everything:\n[S]\tName: " + str(ch_name) + "\n\tRace: "
+      + "a summary of everything:\n[S]\t\nName: " + str(ch_name) + "\n\tRace: "
       + str(ch_race) + "\n\tClass: " + str(ch_class) + "\n\tHP: "
       + str(hit_die) + "\n\tAbility scores: " + str(ability_scores))
 
@@ -109,7 +106,7 @@ print("[GM]\tThat's about it when it comes to your character.\n\tNow that we"
 print("[S]\tAvailable spells for level " + str(ch_lvl) + " " + str(ch_class)
       + ":")
 spells_path = "/opt/ch_class/" + ch_class + "/" + ch_lvl + "/"
-available_spells = subprocess.check_output(['ls']).decode('utf-8')
+available_spells = subprocess.check_output(['ls', spells_path]).decode('utf-8')
 print("\t" + str(available_spells))
 
 character_path = "/home/" + str(ch_name) + "/character.txt"
@@ -119,5 +116,10 @@ with open(character_path, "w") as f:
             + str(hit_die) + "\n\tAbility scores: " + str(ability_scores)
             + "\nAvailable spells:\n" + str(available_spells))
 
-print("[GM]\t A file has been created in " + str(character_path) + "with these"
+print("[GM]\t A file has been created in " + str(character_path) + " with this"
       + " information.\n\t Have, fun! :D")
+finish = "n"
+while(finish!="y"):
+  finish = input("[S]\tType 'y' to exit")
+
+
