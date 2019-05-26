@@ -11,7 +11,7 @@ PARENT_FOLDER = "ch_class/"
 SOURCE_PATH = "sp_lvl/"
 
 # load all classes json
-with open("classes.json") as f:
+with open("json/classes.json") as f:
     classes = f.read()
 classes = json.loads(classes)
 classes = classes["results"]
@@ -22,7 +22,7 @@ for chclass in classes:
     spells_by_class[chclass["name"]] = []
 
 # load all spells json
-with open("spells.json") as f:
+with open("json/spells.json") as f:
     spells = f.read()
 spells = json.loads(spells)
 spells = spells["results"]

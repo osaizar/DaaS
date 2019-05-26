@@ -8,7 +8,7 @@ import os
 PARENT_FOLDER = "/opt/sp_lvl/"
 
 # load all spells json
-with open("spells.json") as f:
+with open("json/spells.json") as f:
     spells = f.read()
 spells = json.loads(spells)
 spells = spells["results"]
