@@ -14,7 +14,7 @@ def generate_userlist(characters, campaign):
 		for i, c in enumerate(characters):
 			passwd = db.get_user_by_id(c.user).password
 			ch_class = db.get_character_class_by_id(c.ch_class).name
-			f.write(c.name+","+passwd+","+str(i+1001)+","+ch_class+","+str(c.lvl)+"\n")
+			f.write(c.name+","+passwd+","+str(i+1001)+","+ch_class+","+"splv"+str(c.lvl)+"\n")
 
 	
 def generate_grouplist():
