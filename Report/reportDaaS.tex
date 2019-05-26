@@ -1,0 +1,220 @@
+\documentclass[a4paper,12pt]{report}
+
+\newcommand{\firstauthor}{Jorge Erustes}
+\newcommand{\secondauthor}{Oier Saizar}
+\newcommand{\thirdauthor}{Ainhoa Ach\'on}
+\newcommand{\fourthauthor}{Alejandro Mart\'in}
+%\newcommand{\groupnumber}{}
+\newcommand{\docversion}{Version 1.0}
+
+% include packages
+\usepackage[margin=2cm]{geometry}
+% \usepackage{color}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs}
+\usepackage{parskip}
+\usepackage[pdftex]{hyperref}
+\usepackage[titletoc]{appendix} % adds ``Appendix'' prefix in TOC
+\usepackage{listings}
+\usepackage{url}
+
+\definecolor{keyword}{HTML}{B71C1C}
+\definecolor{foreground}{HTML}{000000}
+\definecolor{background}{HTML}{FFFFFF}
+\definecolor{codecomment}{HTML}{757575}
+\definecolor{identifier}{HTML}{0D47A1}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+% configure packages
+\lstset{language=bash,
+    basicstyle=\footnotesize\ttfamily\color{foreground},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    keepspaces=true,
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=2,
+    numbersep=5pt,
+    identifierstyle=\color{foreground},
+    keywordstyle=\color{foreground},
+    rulecolor=\color{foreground},
+    stringstyle=\color{mymauve},
+    commentstyle=\color{codecomment},
+    backgroundcolor=\color{background}
+    }
+
+% pdflatex goodies.
+\hypersetup{
+    pdfstartview=FitH,
+    pdftitle={DaaS},
+    pdfauthor={\firstauthor, \secondauthor, \thirdauthor, \fourthauthor},
+    pdfsubject={},
+    pdfkeywords={ansible, openstack, d&d}
+    bookmarks,
+    bookmarksopen,
+    colorlinks,
+    linkcolor=black,
+    citecolor=blue,
+    urlcolor=blue,
+}
+
+\newcommand{\TODO}[1]{\textcolor{red}{\newline TODO: #1}}
+
+
+\title{Dungeons\&Dragons as a Service}
+\author{\Large \firstauthor\\\Large \secondauthor\\\thirdauthor\\\fourthauthor\\\mbox{}\\\mbox{}\\\docversion}
+\date{\today}
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+
+\renewcommand{\thepage}{\roman{page}}
+\maketitle
+\tableofcontents
+\addcontentsline{toc}{chapter}{Table of Contents}
+
+\chapter{Introduction}
+\setcounter{page}{1}
+\renewcommand{\thepage}{\arabic{page}}
+
+Dungeons \& Dragons as a Service is born to pave the way for fast and automated 21st-century role-game campaign creation and configuration. DaaS works as a framework in which one can quickly start playing D\&D in a Cloud instance automatically launched by the service, already configured for a \textit{launch-and-play} experience. 
+
+All participants can choose the details of their characters through a Web-Server wizard, guiding them through the process, including class, stats and race selection. Once chosen, DaaS takes charge of the rest and ensures a Cloud instance is created, in which the characters are setup for login for the users and Dungeon Master to do so. When logging in, characters will find the access to their spells already configured. All spell access will be based on the character's level and class, as there will be an Access Control List running to make sure each character is limited to their legitimate capabilities.
+
+The Web Server runs in an Apache Server, and uses Ansible to tell the machine in charge of the instances (CentOS) to launch a new instance to host the new campaign. This Cloud Campaign will be a CentOS as well, which will be remotely configured via Ansible with everything necessary for the game to go smoothly. Spells are organized as files in a file tree separating character classes and levels while these spells' permissions to be used are remotely configured too through an Access Control list based on the character's attributes.
+
+%
+
+%%%%%%
+\chapter{...}
+\label{ch:}
+
+...
+
+%%
+\section{...}
+\label{sec:}
+
+%\newpage
+
+
+\section{...}
+\label{sec:}
+
+
+
+%
+\subsection{...}
+\label{ssec:}
+
+\begin{description}
+  \item[itemname] ... 
+
+    \begin{itemize}
+      \item \texttt{},
+      \item \texttt{}. 
+    \end{itemize} 
+   
+\end{description}
+
+%
+
+%%
+\section{}
+\label{sec:}
+
+
+%%%%%%
+\chapter{Planning}
+\label{ch:plan}
+
+During this chapter we will cover everything regarding the structure of the whole infrastructure. This will include all technological and logical details of how the service is thought and planned out.
+
+The basic structure of the service will be sketched out below and will consist of the following.
+\begin{itemize}
+    \item \textbf{Clients}: These represent the user machines, through which they connect to the service to create the campaign, choose their characters and later connect to the Cloud Campaign instance.
+    \item \textbf{WebServer}: This Debian machine is in charge of serving as a crossroads for user interaction and instance configuration, as will be seen later in greater detail. Uses a mySQL database.
+    \item \textbf{RDO (OpenStack Server}: This CentOS machine is in charge of the Cloud Instance creation and configuration. It uses OpenStack to do so, and will be referred to as RDO from now on.
+    \item \textbf{Cloud Campaign}: These are the Cloud Instances in which the campaigns are hosted, running on Ubuntu machines and launched from RDO.
+\end{itemize}
+
+%%
+section{Idea}
+- people create their characters in the WS. Stored in the DB.
+        %
+\TODO explain the logic of the file system created 
+
+\label{sec:planIdea}
+
+%%
+\section{Web Server and Ansible}
+\label{sec:planWS}
+The Web Server is deployed as a web application using the Flask micro-framework (Python) running over a mySQL database.
+This server is in charge of Ansible to set up the remote configuration of the rest of the system.
+
+Ansible has two main tasks in the service: 
+\begin{itemize}
+    \item \textbf{Order Cloud Instance creation}: The server will task the RDO (OpenStack Server) the creation of Cloud Instances which will host the game campaigns, using Ansible as communication. The Web Server sends an Ansible script to the RDO, who will use it together with OpenStack to launch these Cloud Campaign instances. 
+    \TODO comentar cuando se crea el sistema de fichero(cuando ejecutamos el script de ainhoa)
+   %%% TODO 
+    \item \textbf{Remote Configuration of Instances}: Once the Cloud Campaigns are up, the Web Server launches Ansible to configure these instances. 
+    \begin{itemize}
+        \item \textit{Group creation}: Linux groups are created in the remote Linux instances (Cloud Campaigns). These groups are of two types: Character Classes (Warlock, Wizard, Paladin...) and Level (0, 1,.. 9). They will be used to place the playing characters in them according to their Class choice and Level (0 by default at Campaign Opening). 
+        \item \textit{Character creation}: With the registered user's characters, Ansible is used to create new users in the Cloud Campaigns, belonging to the groups: Class\_name \& 0 (character level). The choice made when configuring the campaign in the Web Server will determine which Class are they placed into, and they start at Level 0 with their characters.
+        \item \textit{Permission Setting}: In order to correctly configure what Spells can each character use, we employ Ansible to set up an Access Control List on the Spell files to ensure no character can access a Spell outside of its range (other Class different than its own or Level higher than its current one). The logic behind the Access Control will be detailed further in upcoming sections.
+    \end{itemize}
+    
+\section{Access Control Management}
+\label{sec:planACL}
+The Access Control system is based on an adaptation of Bell-LaPadula model to the scenario presented in this occasion. From now on, this adapted model, if the reader allows for the authors' literary freedom, will be renamed as Bell-LaPseudoPadula.
+
+In the security model present in the Cloud Campaigns, our to-be-secured environment, consists of Linux users (Campaign characters) which belong to Linux groups (roles/attributes in the game, character class and level). Therefore, these groups can be re-interpreted as \textit{security clearance}.
+On the other hand, we have Spells, the to-be-regulated object, to which characters aspire to gain access to.
+    
+    
+    ---
+     //FINAL de este CAPITULO (todo esto tiene que estar explicado)
+    This configured structure sets an environment where Linux groups are acting as key attributes/roles for the characters -- Linux users -- in order to manage the Spells (i.e. \textit{json} file) they can legitimately access and make use of (i.e. read file), according to the Class choice and level at which they are at.
+    \TODO review hasta donde hay que explicar en modo LITERAL. (read, json..)
+
+\end{itemize}
+
+%%%%%%
+\chapter{Deployment}
+\label{ch:dev}
+
+%%%%%%
+\chapter{Conclusions}
+\label
+
+This project was created with lots of caffeine, lack of sleep over a week, a couple of teaspoons of desire to die and a pinch of freaky love.
+
+PD. RIP Alex, fallen in battle (either was o will be).
+
+
+% BIBLIOGRAPHY
+\bibliographystyle{ieeetr}
+\bibliography{report.bib}
+\addcontentsline{toc}{chapter}{References}
+
+% APPENDIX
+\appendix
+\appendixpage
+
+%%%%%%
+\chapter{...}
+\label{app:}
+
+Listing~\ref{lst:filename}.
+
+
+%%%%%%
+\chapter{...}
+\label{app:}
+
+
+\end{document}
