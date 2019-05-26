@@ -2,7 +2,7 @@
 - hosts: instances # TODO
   vars:
     # groupname,gid
-    csvfile: "{{ lookup('file', '/home/daas/DaaS/Web API/csv/grouplist.csv') }}"
+    csvfile: "{{ lookup('file', '/home/daas/DaaS/Web API/csv/group_list.csv') }}"
     lines: "{{ csvfile.split('\n') }}"
   
   tasks:
