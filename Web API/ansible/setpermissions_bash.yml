@@ -2,7 +2,7 @@
 - hosts: instances # TODO
   vars:
     # groupname,gid
-    csvfile: "{{ lookup('file', '../csv/grouplist.csv') }}"
+    csvfile: "{{ lookup('file', 'csv/grouplist.csv') }}"
     lines: "{{ csvfile.split('\n') }}"
   
   tasks:
