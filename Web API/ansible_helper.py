@@ -50,7 +50,7 @@ def start_instance():
 	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/create_class_groups.yml"))
 	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/create_level_groups.yml"))
 	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/create_user_fromfile.yml"))
-	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/setpermissionss_bash.yml"))
+	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/setpermissions_bash.yml"))
 	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/reset_root_pwd.yml"))
 
 	return instance_ip
