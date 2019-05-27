@@ -43,7 +43,10 @@ def add_ip_to_inventory(ip):
 
 def start_instance():
 	out = subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory "+PREV_DIR+"ansible/despliegue.yml")
-	instance_ip = re.findall(IP_RE, out)[0]
+	instance = re.findall(IP_RE, out)[0].split(":")
+	instance_ip = "10.0.2.5"
+	instance_port = instance[1]
+	instance_ip = instance_ip+":"+instance_port
 
 	add_ip_to_inventory(instance_ip)
 
