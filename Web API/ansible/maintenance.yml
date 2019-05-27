@@ -1,0 +1,9 @@
+---
+- hosts: instances # TODO
+  tasks:
+    - name: Run apt-get update on instances to keep updated
+      become: yes
+      become_user: root
+      apt:
+       upgrade: yes
+       update_cache: yes 

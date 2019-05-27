@@ -3,6 +3,7 @@ import db_helper as db
 import os
 import subprocess
 import re
+import time
 
 IP_RE = r"ip_addr(.*)ip_addr"
 PREV_DIR = ""
@@ -46,9 +47,13 @@ def start_instance():
 	instance = re.findall(IP_RE, out)[0].split(":")
 	instance_ip = "10.0.2.5"
 	instance_port = instance[1]
-	instance_ip = instance_ip+":"+instance_port
+	instance_ip_show = instance_ip+":"+instance_port
 
-	add_ip_to_inventory(instance_ip)
+	add_ip_to_inventory(instance_ip_show)
+
+	instance_ip = instance_ip+" --ssh-extra-args='-p "+instance_port+"' --sftp-extra-args='-P "+instance_port+"'"
+
+	time.sleep(60*4)
 
 	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/create_class_groups.yml"))
 	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/create_level_groups.yml"))
@@ -56,4 +61,4 @@ def start_instance():
 	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/setpermissions_bash.yml"))
 	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/reset_root_pwd.yml"))
 
-	return instance_ip
+	return instance_ip_show
