@@ -2,11 +2,11 @@
 ## Takes 0-9 array containing
  # group name(level) & gid. These are used to create
  # LEVEL GROUPS in which the users will be
- # later added into. 
+ # later added into.
   #
 
-- hosts: instances # TODO
-    
+- hosts: instances
+
   tasks:
   - name: Create a group for each spell level
     become: yes
@@ -14,8 +14,7 @@
     # debug: "{{item}}"
     group:
       name: "splv{{item}}"
-      state: present      
+      state: present
       gid: "300{{item}}"
     with_items:
     - "{{[0,1,2,3,4,5,6,7,8,9]}}"
-

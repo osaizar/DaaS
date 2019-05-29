@@ -17,7 +17,7 @@ def generate_userlist(characters, campaign):
 			ch_class = db.get_character_class_by_id(c.ch_class).name
 			f.write(c.name+","+passwd+","+str(i+1001)+","+ch_class+","+"splv"+str(c.lvl)+"\n")
 
-	
+
 def generate_grouplist():
 	with open(PREV_DIR+'csv/group_list.csv', 'w') as f:
 		for i,c in enumerate(CLASSES):
@@ -43,22 +43,16 @@ def add_ip_to_inventory(ip):
 
 
 def start_instance():
-	out = subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory "+PREV_DIR+"ansible/despliegue.yml")
+	out = subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory "+PREV_DIR+"ansible/deploy.yml")
 	instance = re.findall(IP_RE, out)[0].split(":")
-	instance_ip = "10.0.2.5"
+	instance_ip = "10.0.2.5" # Harcoded OpenStack ip, we don't need the internal IP addres of the instance
 	instance_port = instance[1]
 	instance_ip_show = instance_ip+":"+instance_port
 
 	add_ip_to_inventory(instance_ip_show)
 
-	instance_ip = instance_ip+" --ssh-extra-args='-p "+instance_port+"' --sftp-extra-args='-P "+instance_port+"'"
+	time.sleep(60*4) # Time needed for the Ubuntu instance to start
 
-	time.sleep(60*4)
-
-	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/create_class_groups.yml"))
-	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/create_level_groups.yml"))
-	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/create_user_fromfile.yml"))
-	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/setpermissions_bash.yml"))
-	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" "+PREV_DIR+"ansible/reset_root_pwd.yml"))
+	print(subprocess.getoutput("ansible-playbook -i "+PREV_DIR+"ansible/inventory --limit "+instance_ip+" --ssh-extra-args='-p "+instance_port+"' --sftp-extra-args='-P "+instance_port+"'"+" "+PREV_DIR+"ansible/instance_config.yml"))
 
 	return instance_ip_show

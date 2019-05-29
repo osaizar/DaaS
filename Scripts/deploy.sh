@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script needs to  be in /root/ of the OpenStack server
 
 source /opt/stack/devstack/openrc demo > /dev/null 2> /dev/null
 inst_name="inst_$RANDOM"
@@ -14,4 +15,4 @@ echo "ip_addr${floating_ip}:${dport}ip_addr"
 
 iptables -t nat -I PREROUTING 1 -d 10.0.2.5 -p tcp --dport $dport -j DNAT --to-destination $floating_ip:22
 
-rm /tmp/floating_ip.txt 
+rm /tmp/floating_ip.txt

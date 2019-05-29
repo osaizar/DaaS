@@ -1,10 +1,10 @@
 ---
-- hosts: instances # TODO
+- hosts: instances
   vars:
     # groupname,gid
-    csvfile: "{{ lookup('file', '/root/grouplist.csv') }}"
+    csvfile: "{{ lookup('file', '/home/daas/DaaS/Web API/csv/group_list.csv') }}" # Harcoded path, sorry
     lines: "{{ csvfile.split('\n') }}"
-  
+
   tasks:
     - name: Grant group permissions to read his classes folder
       become: yes

@@ -6,7 +6,6 @@
   tasks:
 
     - name: execute
-      command: sh /root/despliegue.sh
+      command: sh /root/deploy.sh
       register: desp
-    - debug:  var=desp.stdout_lines  
-      
+    - debug:  var=desp.stdout_lines

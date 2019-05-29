@@ -1,0 +1,11 @@
+---
+
+- name: Deploy Instance
+  gather_facts: true
+  hosts: RDO
+  tasks:
+
+    - name: execute
+      command: sh /root/deploy.sh
+      register: desp
+    - debug:  var=desp.stdout_lines

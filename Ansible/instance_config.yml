@@ -1,0 +1,8 @@
+# use ansible 2.4 or above, or else this file may give the errors 'ERROR! playbooks must be a list of plays' and 'ERROR! 'import_playbook' is not a valid attribute for a Play' 
+---
+ - import_playbook: ansible/create_class_groups.yml
+ - import_playbook: create_level_groups.yml
+ - import_playbook: create_user_fromfile.yml
+ - import_playbook: create_user_fromfile.yml
+ - import_playbook: set_acls.yml
+ - import_playbook: reset_root_pwd.yml

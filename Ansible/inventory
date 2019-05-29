@@ -1,0 +1,12 @@
+[RDO]
+10.0.2.5
+
+[RDO:vars]
+ansible_user=root
+ansible_password=root
+
+[instances]
+
+[instances:vars]
+ansible_user=root
+ansible_password=root

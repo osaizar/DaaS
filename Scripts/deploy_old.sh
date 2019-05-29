@@ -33,7 +33,7 @@ then
 	
 		if [ "$existe" == "no" ]
 		then
-			echo "Empezando despliegue"
+			echo "Empezando deploy"
 
 			openstack project create --domain default --description "Proyecto $nombreProyecto de $nombreAlumno" $nombreProyecto
 			openstack user create --domain default --password $password $nombreUsuario

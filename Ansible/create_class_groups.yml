@@ -2,22 +2,22 @@
 ## Takes csv file <grouplist.csv> containing
  # group name & gid. These are used to create
  # CLASS GROUPS in which the users will be
- # later created into. 
+ # later created into.
   #
 
-- hosts: instances # TODO
+- hosts: instances
   vars:
     # groupname,gid
-    csvfile: "{{ lookup('file', '/root/grouplist.csv') }}"
+    csvfile: "{{ lookup('file', '/home/daas/DaaS/Web API/csv/group_list.csv') }}" # Harcoded path, sorry
     lines: "{{ csvfile.split('\n') }}"
-    
+
   tasks:
   - name: Ensure Character Class (UNIX group) exists
     become: yes
     become_user: root
     group:
       name: "{{item.split(',')[0]}}"
-      state: present      
+      state: present
       gid: "{{item.split(',')[1]}}"
     with_items:
       - "{{lines}}"

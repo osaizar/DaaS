@@ -1,4 +1,4 @@
-# 2  
+# 2
 
 from urllib.request import urlopen
 # import urllib2
