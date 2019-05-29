@@ -1,10 +1,51 @@
-# DaaS
+<img src="https://github.com/osaizar/DaaS/blob/master/Report/images/logo.png?raw=true" alt="alt text" height="250">
 
-## Dungeons&Dragons as a Service
+# Dungeons & Dragons as a Service
 
-Dungeons & Dragons as a Service is born to pave the way for fast and automated 21st-century role-game campaign creation and configuration. DaaS works as a framework in which one can quickly start playing D&D in a Cloud instance automatically launched by the service, already configured for a _launch-and-play_ experience. 
+Dungeons & Dragons as a Service is born to pave the way for fast and automated 21st-century role-game campaign creation and configuration. DaaS works as a framework in which one can quickly start playing D&D in a Cloud instance automatically launched by the service, already configured for a _launch-and-play_ experience.
 
-All participants can choose the details of their characters through a Web-Server wizard, guiding them through the process, including class, stats and race selection. Once chosen, DaaS takes charge of the rest and ensures a Cloud instance is created, in which the characters are setup for login for the users and Dungeon Master to do so. When logging in, characters will find the access to their spells already configured. All spell access will be based on the character’s level and class, as there will be an Access Control List running to make sure each character is limited to their legitimate capabilities. 
+## The Infrastructure
+The cloud infrastructure we created can be summarized in this diagram:
+![alt_text](Report/images/Phase3.png)
 
-The Web Server runs in an Apache Server, and uses Ansible to tell the machine in charge of the instances (CentOS) to launch a new instance to host the new campaign. This Cloud Campaign will be a CentOS as well, which will be remotely configured via Ansible with everything necessary for the game to go smoothly. Spells are organized as files in a file tree separating character classes and levels while these spells’ permissions to be used are remotely configured
-too through an Access Control list based on the character’s attributes.
+Or:
+- A web server that the clients connect to
+  * Clients use it as a frontend
+  * Manages the CentoOS server via Ansible
+  * Manages the Ubuntu instances via Ansible
+- A CentOS OpenStack server
+  * Deploys ubuntu instances
+
+## The Web Server
+The (web server)[Web API/] is the frontend for our users, this is where each campaign is configured and the characters are created by the players. When everything is ready, the dungeon master creates a campaign and the instance configuration starts.
+
+This web server is a REST API running in Flask and MySQL and it's also responsible for all the ansible playbooks and the ansible inventory. You can read how we handle this in (ansible_helper.py)[Web API/ansible_helper.py].
+
+## OpenStack and the instance deployment
+The used OpenStack implementation is [Devstack](https://docs.openstack.org/devstack/latest/) for its simplicity and the fact that it only needs one server to run (one ~~fucking~~ big server is still one server after all).
+
+When the dungeon master creates a campaign, the web server signals the OpenStack server to deploy a new Ubuntu instance and to publish the SSH port to it. In order to do so, the next ansible playbook is executed from the web server: (deploy.yml)[Web API/ansible/deploy.yml] which runs this bash script in the CentOS OpenStack server: (deploy sh)[Scripts/deploy.sh].
+
+The Ubuntu instances have already been configured to run a OpenSSH server at start and to include spell file system structure that is needed to play the game. In this file structure, spells are organized as files in a file tree separating character classes and levels, this file structure allows us to configure the access of each spell based in the attributes of the users using Access Control Lists and Unix file permissions. 
+
+The file structure can be configured using these python script (create_file_system.py)[Scripts/spells_roles/create_file_system.py] which runs (get_spells_with_roles.py)[Scripts/spells_roles/get_spells_with_roles.py] and (get_spells_by_class.py)[Scripts/spells_roles/get_spells_by_class.py] in this order.
+
+After deploying the new ubuntu instance, (deploy.sh)[Scripts/deploy.sh] returns it's ip address and SSH port so that it can be added to the Ansible inventory for further configurations and updates.
+
+## Ansible ~and the hell of linking everything together~
+As mentioned before, the web server uses Ansible to tell the OpenStack server to launch a new instance to host the new campaign. This Cloud Campaign will start with a given file structure but it will need further configurations to be actually usable. To do so, this new instance will be remotely configured via Ansible with the (instance_config.yml)[Web API/ansible/instance_config.yml] playbook.
+
+With this playbook:
+- The class groups will be created (Wizard, Warlock, Ranger...) [playbook](Web API/ansible/create_class_groups.yml)
+- The level groups will be created (splv0, splv1, splv2...) [playbook](Web API/ansible/create_level_groups.yml)
+- The users will be created according to the players [playbook](Web API/ansible/create_user_fromfile.yml)
+- ACLs and file permissions will be configured according to the players character classes and levels [playbook](Web API/ansible/set_acls.yml)
+- The root password will be reseted to the password of the Dungeon Master [playbook](Web API/ansible/reset_root_pwd.yml)
+
+## How to play the game
+At this moment, this project only supports character creation and spell reference. 
+When a player logs in to her account in the game server via SSH she will run the character creation [script](Scripts/character_creation.py) located at `/opt/character_creation.py` to start the character creation wizard that will roll the dices and help creating the character.
+
+In the future, management scripts could be added so that the master could level up players, modify them or kill them.
+
+
