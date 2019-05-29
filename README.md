@@ -1,6 +1,9 @@
-<img src="https://github.com/osaizar/DaaS/blob/master/Report/images/logo.png?raw=true" alt="alt text" height="250">
 
 # Dungeons & Dragons as a Service
+
+<p align="center">
+ <img src="https://github.com/osaizar/DaaS/blob/master/Report/images/logo.png?raw=true" alt="alt text" height="300">
+</p>
 
 Dungeons & Dragons as a Service is born to pave the way for fast and automated 21st-century role-game campaign creation and configuration. DaaS works as a framework in which one can quickly start playing D&D in a Cloud instance automatically launched by the service, already configured for a _launch-and-play_ experience.
 
