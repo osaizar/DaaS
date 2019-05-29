@@ -9,7 +9,7 @@ The cloud infrastructure we created can be summarized in this diagram:
 ![alt_text](Report/images/Phase3.png)
 
 Or:
-- A web server that the clients connect to
+- A Debian Web Server
   * Clients use it as a frontend
   * Manages the CentoOS server via Ansible
   * Manages the Ubuntu instances via Ansible
@@ -33,7 +33,7 @@ The file structure can be configured using these python script [create_file_syst
 After deploying the new ubuntu instance, [deploy.sh](Scripts/deploy.sh) returns it's ip address and SSH port so that it can be added to the Ansible inventory for further configurations and updates.
 
 ## Ansible ~and the hell of linking everything together~
-As mentioned before, the web server uses Ansible to tell the OpenStack server to launch a new instance to host the new campaign. This Cloud Campaign will start with a given file structure but it will need further configurations to be actually usable. To do so, this new instance will be remotely configured via Ansible with the (instance_config.yml)[Web%20API/ansible/instance_config.yml] playbook.
+As mentioned before, the web server uses Ansible to tell the OpenStack server to launch a new instance to host the new campaign. This Cloud Campaign will start with a given file structure but it will need further configurations to be actually usable. To do so, this new instance will be remotely configured via Ansible with the [instance_config.yml](Web%20API/ansible/instance_config.yml) playbook.
 
 With this playbook:
 - The class groups will be created (Wizard, Warlock, Ranger...) [playbook](Web%20API/ansible/create_class_groups.yml)
