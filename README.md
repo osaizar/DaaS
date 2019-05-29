@@ -48,4 +48,5 @@ When a player logs in to her account in the game server via SSH she will run the
 
 In the future, management scripts could be added so that the master could level up players, modify them or kill them.
 
-
+## I need way more information and I love PDFs
+We got you fam: [the report](Report/Report_architectures.pdfReport_architectures.pdf)
