@@ -36,11 +36,11 @@ After deploying the new ubuntu instance, [deploy.sh](Scripts/deploy.sh) returns 
 As mentioned before, the web server uses Ansible to tell the OpenStack server to launch a new instance to host the new campaign. This Cloud Campaign will start with a given file structure but it will need further configurations to be actually usable. To do so, this new instance will be remotely configured via Ansible with the [instance_config.yml](Web%20API/ansible/instance_config.yml) playbook.
 
 With this playbook:
-- The class groups will be created (Wizard, Warlock, Ranger...) [playbook](Web%20API/ansible/create_class_groups.yml)
-- The level groups will be created (splv0, splv1, splv2...) [playbook](Web%20API/ansible/create_level_groups.yml)
-- The users will be created according to the players [playbook](Web%20API/ansible/create_user_fromfile.yml)
-- ACLs and file permissions will be configured according to the players character classes and levels [playbook](Web%20API/ansible/set_acls.yml)
-- The root password will be reseted to the password of the Dungeon Master [playbook](Web%20API/ansible/reset_root_pwd.yml)
+- The class groups will be created (Wizard, Warlock, Ranger...) - [The playbook](Web%20API/ansible/create_class_groups.yml)
+- The level groups will be created (splv0, splv1, splv2...) - [The playbook](Web%20API/ansible/create_level_groups.yml)
+- The users will be created according to the players - [The playbook](Web%20API/ansible/create_user_fromfile.yml)
+- ACLs and file permissions will be configured according to the players character classes and levels - [The playbook](Web%20API/ansible/set_acls.yml)
+- The root password will be reseted to the password of the Dungeon Master - [The playbook](Web%20API/ansible/reset_root_pwd.yml)
 
 ## How to play the game
 At this moment, this project only supports character creation and spell reference. 
@@ -50,3 +50,13 @@ In the future, management scripts could be added so that the master could level 
 
 ## I need way more information and I love PDFs
 We got you fam: [the report](Report/Report_architectures.pdf)
+
+___
+
+Made with little sleep and too much caffeine by:
+- [@wared95](https://github.com/wared95)
+- [@jerustes](https://github.com/jerustes)
+- [@osaizar](https://github.com/osaizar)
+- [@amartin129](https://github.com/amartin129)
+
+> Remember kids, don't feed openstack after midnight...
