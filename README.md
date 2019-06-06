@@ -57,7 +57,7 @@ We got you fam: [the report](Report/Report_architectures.pdf)
 ___
 
 Made with little sleep and too much caffeine by:
-- [@wared95](https://github.com/wared95) - The scriptimg and D&D wizard
+- [@wared95](https://github.com/wared95) - The scripting and D&D wizard
 - [@jerustes](https://github.com/jerustes) - The documentation bard
 - [@osaizar](https://github.com/osaizar) - The server necromancer
 - [@amartin129](https://github.com/amartin129) - The undead
