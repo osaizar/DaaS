@@ -57,9 +57,9 @@ We got you fam: [the report](Report/Report_architectures.pdf)
 ___
 
 Made with little sleep and too much caffeine by:
-- [@wared95](https://github.com/wared95)
-- [@jerustes](https://github.com/jerustes)
-- [@osaizar](https://github.com/osaizar)
-- [@amartin129](https://github.com/amartin129)
+- [@wared95](https://github.com/wared95) - The scriptimg and D&D wizard
+- [@jerustes](https://github.com/jerustes) - The documentation bard
+- [@osaizar](https://github.com/osaizar) - The server necromancer
+- [@amartin129](https://github.com/amartin129) - The undead
 
 > Remember kids, don't feed openstack after midnight...
